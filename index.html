@@ -19,9 +19,9 @@
     --gold-deep: #C87418;
     --gold-mid: #F59A23;
 
-    --green-dark: #0f4d1c;
-    --green-deep: #2f7d36;
-    --green-mid: #56a85d;
+    --vine-dark: #0f4d1c;
+    --vine-deep: #2f7d36;
+    --vine-mid: #56a85d;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,660 +34,667 @@
     color: var(--page-text);
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  .page-wrapper {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 16px 60px;
-  }
-
-  .web-svg {
-    position: fixed;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.08;
-  }
-  .web-svg.tl { top: 0; left: 0; }
-  .web-svg.tr { top: 0; right: 0; transform: scaleX(-1); }
-
-  .header {
-    text-align: center;
-    padding: 48px 0 32px;
-    animation: fadeDown 0.8s ease both;
-  }
-  .header img { display: block; margin: 0 auto; }
-
-  .header-divider {
+  /* ── Top nav bar ── */
+  .top-bar {
+    background: var(--page-text);
+    padding: 0 20px;
+    height: 70px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin: 20px auto;
-    max-width: 320px;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .header-divider::before,
-  .header-divider::after {
+
+  .top-bar-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .top-bar-logo img {
+    height: 48px;
+    object-fit: contain;
+  }
+
+  .top-bar-stamp img {
+    height: 52px;
+    object-fit: contain;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 36px 20px 28px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .hero-pre {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--page-accent);
+    margin-bottom: 6px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(26px, 7vw, 40px);
+    font-weight: 900;
+    color: var(--vine-dark);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 260px;
+    margin: 0 auto 14px;
+  }
+  .hero-divider::before,
+  .hero-divider::after {
     content: '';
     flex: 1;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--page-accent), transparent);
   }
-  .spider-icon { font-size: 18px; }
-
-  .header-tagline {
-    color: var(--page-text);
+  .hero-divider-icon {
     font-size: 16px;
-    font-style: italic;
-    max-width: 340px;
+  }
+
+  .hero-steps {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--page-text);
+  }
+
+  /* ── Page wrapper ── */
+  .page-wrapper {
+    max-width: 680px;
     margin: 0 auto;
-    line-height: 1.6;
+    padding: 0 16px 0;
   }
 
-  .age-gate {
-    background: rgba(160,132,90,0.10);
-    border: 1px solid var(--page-accent);
-    border-radius: 4px;
-    padding: 10px 16px;
-    text-align: center;
-    margin-bottom: 32px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--page-text);
-    animation: fadeDown 0.8s 0.1s ease both;
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 24px;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
-
-  .section-label {
-    font-family: 'Oswald', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--page-accent);
-    margin-bottom: 8px;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(28px, 6vw, 38px);
-    font-weight: 700;
-    color: var(--page-text);
-  }
-
-  .product-block {
-    margin-bottom: 40px;
-    animation: fadeUp 0.8s ease both;
-  }
-  .product-block:nth-child(1) { animation-delay: 0.3s; }
-  .product-block:nth-child(2) { animation-delay: 0.45s; }
-
+  /* ── Product cards ── */
   .product-card {
-    border-radius: 6px;
+    border-radius: 8px;
     overflow: hidden;
     position: relative;
     border-width: 1px;
     border-style: solid;
+    margin-bottom: 20px;
+    animation: fadeUp 0.7s ease both;
   }
+  .product-card:nth-child(1) { animation-delay: 0.1s; }
+  .product-card:nth-child(2) { animation-delay: 0.2s; }
 
-  .product-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-  }
+  .product-card.golden { border-color: var(--gold-mid); background: #fef3e2; }
+  .product-card.vintage { border-color: var(--vine-mid); background: #fef3e2; }
 
-  .card-icon {
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-    opacity: 0.18;
-    pointer-events: none;
-  }
-
-  .product-header {
-    padding: 24px 24px 0;
+  .card-body {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: stretch;
+    position: relative;
+    z-index: 1;
   }
 
-  .product-bottle {
-    width: 72px;
+  /* Bottle column */
+  .card-bottle {
+    width: 120px;
     flex-shrink: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 16px 0 0 12px;
+  }
+
+  .card-bottle img {
+    width: 90px;
     object-fit: contain;
-    align-self: stretch;
-    max-height: 140px;
-    border-radius: 3px;
+    display: block;
   }
 
-  .product-card.golden {
-    background: rgba(245,154,35,0.07);
-    border-color: var(--gold-mid);
-  }
-  .product-card.golden::before {
-    background: linear-gradient(90deg, var(--gold-dark), var(--gold-mid), var(--gold-dark));
-  }
-
-  .product-card.vintage {
-    background: rgba(86,168,93,0.07);
-    border-color: var(--green-mid);
-  }
-  .product-card.vintage::before {
-    background: linear-gradient(90deg, var(--green-dark), var(--green-mid), var(--green-dark));
-  }
-
-
-
-  .product-header-right {
+  /* Content column */
+  .card-content {
     flex: 1;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+    padding: 20px 16px 0 8px;
   }
 
-  .product-type {
+  .card-tag {
     font-family: 'Oswald', sans-serif;
     font-size: 10px;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
-  .golden .product-type { color: var(--gold-deep); }
-  .vintage .product-type { color: var(--green-deep); }
+  .golden .card-tag { color: var(--gold-deep); }
+  .vintage .card-tag { color: var(--vine-deep); }
 
-  .product-name {
+  .card-name {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(24px, 5vw, 32px);
     font-weight: 900;
-    line-height: 1;
-  }
-  .golden .product-name { color: var(--gold-dark); }
-  .vintage .product-name { color: var(--green-dark); }
-
-  .product-meta {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-    flex-wrap: wrap;
-  }
-
-  .meta-badge {
-    font-family: 'Oswald', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cream);
-    padding: 3px 8px;
-    border-radius: 2px;
-  }
-  .golden .meta-badge { background: var(--gold-dark); }
-  .vintage .meta-badge { background: var(--green-dark); }
-
-  .product-badge {
-    font-family: 'Oswald', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cream);
-    padding: 4px 10px;
-    border-radius: 2px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .golden .product-badge { background: var(--gold-dark); }
-  .vintage .product-badge { background: var(--green-dark); }
-
-  .product-description {
-    padding: 16px 24px;
-    font-size: 15px;
-    line-height: 1.65;
-    font-style: italic;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-  }
-  .golden .product-description {
-    color: var(--gold-dark);
-    border-bottom-color: rgba(200,116,24,0.3);
-  }
-  .vintage .product-description {
-    color: var(--green-dark);
-    border-bottom-color: rgba(47,125,54,0.3);
-  }
-
-  .bundles {
-    padding: 20px 24px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .bundle-label {
-    font-family: 'Oswald', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+    font-size: clamp(32px, 9vw, 52px);
+    line-height: 0.9;
     margin-bottom: 4px;
   }
-  .golden .bundle-label { color: var(--gold-deep); }
-  .vintage .bundle-label { color: var(--green-deep); }
+  .golden .card-name { color: var(--gold-deep); }
+  .vintage .card-name { color: var(--vine-dark); }
 
-  .bundle-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    border-radius: 4px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border-width: 1px;
-    border-style: solid;
-  }
-
-  .golden .bundle-btn {
-    background: rgba(245,154,35,0.10);
-    border-color: rgba(200,116,24,0.4);
-  }
-  .golden .bundle-btn:hover {
-    background: rgba(245,154,35,0.20);
-    border-color: var(--gold-mid);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(74,42,18,0.12);
-  }
-
-  .vintage .bundle-btn {
-    background: rgba(86,168,93,0.10);
-    border-color: rgba(47,125,54,0.4);
-  }
-  .vintage .bundle-btn:hover {
-    background: rgba(86,168,93,0.20);
-    border-color: var(--green-mid);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(15,77,28,0.12);
-  }
-
-  .bundle-btn:active { transform: translateY(0); }
-
-  .golden .bundle-btn.featured {
-    background: rgba(245,154,35,0.18);
-    border-color: var(--gold-mid);
-  }
-  .vintage .bundle-btn.featured {
-    background: rgba(86,168,93,0.18);
-    border-color: var(--green-mid);
-  }
-
-  .bundle-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .bundle-qty {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 22px;
-    font-weight: 700;
-    min-width: 28px;
-  }
-  .golden .bundle-qty { color: var(--gold-deep); }
-  .vintage .bundle-qty { color: var(--green-deep); }
-
-  .bundle-desc { display: flex; flex-direction: column; }
-
-  .bundle-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .card-subtitle {
     display: flex;
     align-items: center;
     gap: 6px;
+    margin-bottom: 8px;
   }
-  .golden .bundle-title { color: var(--gold-dark); }
-  .vintage .bundle-title { color: var(--green-dark); }
-
-  .bundle-per {
-    font-size: 12px;
-    opacity: 0.65;
-    margin-top: 2px;
-  }
-  .golden .bundle-per { color: var(--gold-dark); }
-  .vintage .bundle-per { color: var(--green-dark); }
-
-  .bundle-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .bundle-price {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 22px;
-    font-weight: 700;
-  }
-  .golden .bundle-price { color: var(--gold-dark); }
-  .vintage .bundle-price { color: var(--green-dark); }
-
-  .bundle-arrow {
-    font-size: 16px;
-    transition: transform 0.2s ease;
-  }
-  .golden .bundle-arrow { color: var(--gold-deep); }
-  .vintage .bundle-arrow { color: var(--green-deep); }
-  .bundle-btn:hover .bundle-arrow { transform: translateX(3px); }
-
-  .best-value {
-    font-family: 'Oswald', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--cream);
-    padding: 2px 6px;
-    border-radius: 2px;
-    font-weight: 600;
-  }
-  .golden .best-value { background: var(--gold-dark); }
-  .vintage .best-value { background: var(--green-dark); }
-
-  .delivery-note {
-    background: rgba(160,132,90,0.08);
-    border: 1px solid var(--page-accent);
-    border-radius: 4px;
-    padding: 16px 20px;
-    text-align: center;
-    margin-bottom: 32px;
-    animation: fadeUp 0.8s 0.55s ease both;
-  }
-
-  .delivery-note p {
-    color: var(--page-text);
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  .delivery-note strong {
-    color: var(--page-text);
-    font-family: 'Oswald', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .footer {
-    text-align: center;
-    padding-top: 32px;
-    animation: fadeUp 0.8s 0.6s ease both;
-  }
-
-  .footer-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 0 auto 24px;
-    max-width: 300px;
-  }
-  .footer-divider::before,
-  .footer-divider::after {
+  .card-subtitle::before,
+  .card-subtitle::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--page-accent), transparent);
+  }
+  .golden .card-subtitle::before,
+  .golden .card-subtitle::after { background: var(--gold-deep); }
+  .vintage .card-subtitle::before,
+  .vintage .card-subtitle::after { background: var(--vine-deep); }
+
+  .card-subtitle span {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .golden .card-subtitle span { color: var(--gold-dark); }
+  .vintage .card-subtitle span { color: var(--vine-dark); }
+
+  .card-stars {
+    font-size: 13px;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+  }
+  .golden .card-stars { color: var(--gold-mid); }
+  .vintage .card-stars { color: var(--vine-mid); }
+
+  .card-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .golden .card-desc { color: var(--gold-dark); }
+  .vintage .card-desc { color: var(--vine-dark); }
+
+  /* Buy rows */
+  .buy-rows {
+    border-top-width: 1px;
+    border-top-style: solid;
+    position: relative;
+    z-index: 1;
+  }
+  .golden .buy-rows { border-top-color: rgba(200,116,24,0.25); }
+  .vintage .buy-rows { border-top-color: rgba(47,125,54,0.25); }
+
+  .buy-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 16px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    gap: 12px;
+  }
+  .golden .buy-row { border-bottom-color: rgba(200,116,24,0.15); }
+  .vintage .buy-row { border-bottom-color: rgba(47,125,54,0.15); }
+  .buy-row:last-child { border-bottom: none; }
+
+  .buy-price {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .golden .buy-price { color: var(--gold-dark); }
+  .vintage .buy-price { color: var(--vine-dark); }
+
+  .buy-qty-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-left: 4px;
+  }
+  .golden .buy-qty-label { color: var(--gold-deep); }
+  .vintage .buy-qty-label { color: var(--vine-deep); }
+
+  .buy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+    min-width: 148px;
+    transition: filter 0.2s ease, transform 0.15s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .buy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .buy-btn:active { transform: translateY(0); }
+
+  .golden .buy-btn { background: var(--gold-deep); }
+  .vintage .buy-btn { background: var(--vine-dark); }
+
+  .buy-btn-arrow { font-size: 14px; }
+
+  /* ── How it works ── */
+  .how-it-works {
+    border: 1px solid var(--page-accent);
+    border-radius: 8px;
+    padding: 24px 20px 20px;
+    margin-bottom: 0;
+    background: rgba(160,132,90,0.06);
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .how-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .how-title::before,
+  .how-title::after {
+    content: '→';
+    color: var(--page-accent);
+    font-size: 14px;
+  }
+  .how-title span {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--page-text);
+  }
+
+  .how-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .how-step {
+    text-align: center;
+    position: relative;
+  }
+
+  .how-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: -4px;
+    width: 8px;
+    height: 1px;
+    border-top: 1px dashed var(--page-accent);
+  }
+
+  .how-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--page-text);
+    color: var(--cream);
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+  }
+
+  .how-step-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .how-step-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--page-text);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .how-step-desc {
+    font-size: 11px;
+    color: var(--page-text);
+    opacity: 0.65;
+    line-height: 1.4;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    background: var(--page-text);
+    margin-top: 28px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
   }
 
   .footer-address {
     font-family: 'Oswald', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.15em;
+    font-size: 10px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--page-accent);
     line-height: 1.8;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
   }
 
-  .footer-legal {
-    margin-top: 16px;
-    font-size: 12px;
-    color: var(--page-text);
-    opacity: 0.5;
-    line-height: 1.6;
-    max-width: 340px;
-    margin-left: auto;
-    margin-right: auto;
+  .footer-address-pin { font-size: 14px; margin-top: 1px; }
+
+  .footer-centre {
+    text-align: center;
+  }
+
+  .footer-thanks {
+    font-family: 'Crimson Text', Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--cream);
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+
+  .footer-local {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .footer-local::before,
+  .footer-local::after {
+    content: '—';
+    color: var(--page-accent);
+  }
+
+  .footer-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .footer-qr-box {
+    width: 52px;
+    height: 52px;
+    background: var(--cream);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-qr-box img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+
+  .footer-qr-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--page-accent);
+  }
+
+  /* ── Animations ── */
+  .accommodation-banner {
+    display: none;
+    background: var(--page-text);
+    color: var(--cream);
+    text-align: center;
+    padding: 8px 16px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .accommodation-banner span {
+    color: var(--page-accent);
   }
 
   @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-16px); }
+    from { opacity: 0; transform: translateY(-12px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 </style>
 </head>
 <body>
 
-<svg class="web-svg tl" width="160" height="160" viewBox="0 0 160 160" aria-hidden="true">
-  <g stroke="#A0845A" stroke-width="1" fill="none">
-    <line x1="0" y1="0" x2="160" y2="160"/>
-    <line x1="0" y1="0" x2="120" y2="160"/>
-    <line x1="0" y1="0" x2="80" y2="160"/>
-    <line x1="0" y1="0" x2="40" y2="160"/>
-    <line x1="0" y1="0" x2="160" y2="120"/>
-    <line x1="0" y1="0" x2="160" y2="80"/>
-    <line x1="0" y1="0" x2="160" y2="40"/>
-    <path d="M 20 0 Q 10 10 0 20" stroke-width="0.8"/>
-    <path d="M 45 0 Q 22 22 0 45" stroke-width="0.8"/>
-    <path d="M 70 0 Q 35 35 0 70" stroke-width="0.8"/>
-    <path d="M 95 0 Q 47 47 0 95" stroke-width="0.8"/>
-    <path d="M 120 0 Q 60 60 0 120" stroke-width="0.8"/>
-    <path d="M 145 0 Q 72 72 0 145" stroke-width="0.8"/>
-  </g>
-</svg>
-<svg class="web-svg tr" width="160" height="160" viewBox="0 0 160 160" aria-hidden="true">
-  <g stroke="#A0845A" stroke-width="1" fill="none">
-    <line x1="0" y1="0" x2="160" y2="160"/>
-    <line x1="0" y1="0" x2="120" y2="160"/>
-    <line x1="0" y1="0" x2="80" y2="160"/>
-    <line x1="0" y1="0" x2="40" y2="160"/>
-    <line x1="0" y1="0" x2="160" y2="120"/>
-    <line x1="0" y1="0" x2="160" y2="80"/>
-    <line x1="0" y1="0" x2="160" y2="40"/>
-    <path d="M 20 0 Q 10 10 0 20" stroke-width="0.8"/>
-    <path d="M 45 0 Q 22 22 0 45" stroke-width="0.8"/>
-    <path d="M 70 0 Q 35 35 0 70" stroke-width="0.8"/>
-    <path d="M 95 0 Q 47 47 0 95" stroke-width="0.8"/>
-    <path d="M 120 0 Q 60 60 0 120" stroke-width="0.8"/>
-    <path d="M 145 0 Q 72 72 0 145" stroke-width="0.8"/>
-  </g>
-</svg>
+<!-- Top bar -->
+<nav class="top-bar">
+  <div class="top-bar-logo">
+    <img src="images/logo.png" alt="CPIDER Sider">
+  </div>
+  <div class="top-bar-stamp">
+    <img src="images/provenance-stamp.png" alt="Made in North Devon">
+  </div>
+</nav>
+
+<!-- Accommodation banner -->
+<div class="accommodation-banner" id="accommodation-banner">
+  Ordering from: <span id="accommodation-name"></span>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <p class="hero-pre">Craft cider made here at</p>
+  <h1 class="hero-title">Lane Barton Farm</h1>
+  <div class="hero-divider">
+    <span class="hero-divider-icon">🍎</span>
+  </div>
+  <p class="hero-steps">Scan &bull; Pay &bull; Collect</p>
+</div>
 
 <div class="page-wrapper">
 
-  <header class="header">
-    <img src="images/provenance-stamp.png" alt="Made in North Devon" style="width:220px; margin-bottom:20px;">
-    <img src="images/logo.png" alt="CPIDER Logo" style="width:220px; margin-bottom:20px;">
-    <div class="header-divider">
-      <span class="spider-icon" aria-hidden="true">🕷</span>
-    </div>
-    <p class="header-tagline">Crafted at Lane Barton, Woolsery — slowly fermented to celebrate the bold flavours and heritage of real Devon cider.</p>
-  </header>
-
-  <div class="age-gate" role="note">🕷 &nbsp; Please drink responsibly — over 18s only &nbsp; 🕷</div>
-
-  <div class="section-header">
-    <p class="section-label">Order direct from the farm</p>
-    <h2 class="section-title">Choose Your Cider</h2>
-  </div>
-
   <!-- GOLDEN CIDER -->
-  <div class="product-block">
-    <div class="product-card golden">
-      <img class="card-icon" src="images/icon-golden.png" alt="">
-      <div class="product-header">
-        <img class="product-bottle" src="images/bottle-golden.png" alt="Lane Barton's Golden Cider bottle">
-        <div class="product-header-right">
-          <div class="product-identity">
-            <p class="product-type">Batch No. 2601</p>
-            <h3 class="product-name">GOLDEN CIDER</h3>
-            <div class="product-meta">
-              <span class="meta-badge">5.5% ABV</span>
-              <span class="meta-badge">MEDIUM</span>
-              <span class="meta-badge">500ML</span>
-            </div>
-          </div>
-          <span class="product-badge">Tamed</span>
-        </div>
+  <div class="product-card golden">
+    <div class="card-body">
+      <div class="card-bottle">
+        <img src="images/golden-bottle.png" alt="Lane Barton's Golden Cider">
       </div>
-      <p class="product-description">Our signature drop. Golden in colour, bold in character — hand-picked Devon apples slowly fermented for a crisp, medium-dry finish with a hint of natural sweetness.</p>
-      <div class="bundles">
-        <p class="bundle-label">Select a bundle</p>
-        <a href="YOUR_REVOLUT_LINK_GOLDEN_SINGLE" class="bundle-btn" target="_blank">
-          <div class="bundle-left">
-            <span class="bundle-qty">1</span>
-            <div class="bundle-desc">
-              <span class="bundle-title">Single Bottle</span>
-              <span class="bundle-per">500ml · 5.5% ABV</span>
-            </div>
-          </div>
-          <div class="bundle-right">
-            <span class="bundle-price">£3.50</span>
-            <span class="bundle-arrow" aria-hidden="true">→</span>
-          </div>
+      <div class="card-content">
+        <p class="card-tag">Tamed</p>
+        <h2 class="card-name">GOLDEN</h2>
+        <div class="card-subtitle"><span>Medium Cider</span></div>
+        <div class="card-stars">★★★★★</div>
+        <p class="card-desc">Smooth, refreshing with a crisp finish.</p>
+      </div>
+    </div>
+    <div class="buy-rows">
+      <div class="buy-row">
+        <div>
+          <span class="buy-price">£3.50</span>
+          <span class="buy-qty-label">/ bottle</span>
+        </div>
+        <a href="YOUR_REVOLUT_LINK_GOLDEN_SINGLE" class="buy-btn" target="_blank">
+          Buy 1 Bottle <span class="buy-btn-arrow">→</span>
         </a>
-        <a href="YOUR_REVOLUT_LINK_GOLDEN_4" class="bundle-btn" target="_blank">
-          <div class="bundle-left">
-            <span class="bundle-qty">4</span>
-            <div class="bundle-desc">
-              <span class="bundle-title">Four Pack</span>
-              <span class="bundle-per">£3.00 per bottle</span>
-            </div>
-          </div>
-          <div class="bundle-right">
-            <span class="bundle-price">£12</span>
-            <span class="bundle-arrow" aria-hidden="true">→</span>
-          </div>
+      </div>
+      <div class="buy-row">
+        <div>
+          <span class="buy-price">£12.00</span>
+          <span class="buy-qty-label">/ 4 bottles</span>
+        </div>
+        <a href="YOUR_REVOLUT_LINK_GOLDEN_4" class="buy-btn" target="_blank">
+          Buy 4 Bottles <span class="buy-btn-arrow">→</span>
         </a>
-        <a href="YOUR_REVOLUT_LINK_GOLDEN_12" class="bundle-btn featured" target="_blank">
-          <div class="bundle-left">
-            <span class="bundle-qty">12</span>
-            <div class="bundle-desc">
-              <span class="bundle-title">Case <span class="best-value">Best Value</span></span>
-              <span class="bundle-per">£2.50 per bottle</span>
-            </div>
-          </div>
-          <div class="bundle-right">
-            <span class="bundle-price">£30</span>
-            <span class="bundle-arrow" aria-hidden="true">→</span>
-          </div>
+      </div>
+      <div class="buy-row">
+        <div>
+          <span class="buy-price">£30.00</span>
+          <span class="buy-qty-label">/ 12 bottles</span>
+        </div>
+        <a href="YOUR_REVOLUT_LINK_GOLDEN_12" class="buy-btn" target="_blank">
+          Buy 12 Bottles <span class="buy-btn-arrow">→</span>
         </a>
       </div>
     </div>
   </div>
 
   <!-- VINTAGE CIDER -->
-  <div class="product-block">
-    <div class="product-card vintage">
-      <img class="card-icon" src="images/icon-vintage.png" alt="">
-      <div class="product-header">
-        <img class="product-bottle" src="images/bottle-vintage.png" alt="Lane Barton's Vintage Cider bottle">
-        <div class="product-header-right">
-          <div class="product-identity">
-            <p class="product-type">Batch No. 2601</p>
-            <h3 class="product-name">VINTAGE CIDER</h3>
-            <div class="product-meta">
-              <span class="meta-badge">6.5% ABV</span>
-              <span class="meta-badge">DRY</span>
-              <span class="meta-badge">500ML</span>
-            </div>
-          </div>
-          <span class="product-badge">Wild</span>
+  <div class="product-card vintage">
+    <div class="card-body">
+      <div class="card-bottle">
+        <img src="images/vintage-bottle.png" alt="Lane Barton's Vintage Cider">
+      </div>
+      <div class="card-content">
+        <p class="card-tag">Wild</p>
+        <h2 class="card-name">VINTAGE</h2>
+        <div class="card-subtitle"><span>Dry Cider</span></div>
+        <div class="card-stars">★★★★★</div>
+        <p class="card-desc">Dry, full-bodied cider with a classic Devonshire bite.</p>
+      </div>
+    </div>
+    <div class="buy-rows">
+      <div class="buy-row">
+        <div>
+          <span class="buy-price">£3.50</span>
+          <span class="buy-qty-label">/ bottle</span>
         </div>
+        <a href="YOUR_REVOLUT_LINK_VINTAGE_SINGLE" class="buy-btn" target="_blank">
+          Buy 1 Bottle <span class="buy-btn-arrow">→</span>
+        </a>
       </div>
-      <p class="product-description">A deeper, more complex character. Our vintage pressing draws on the best of the season's harvest — aged longer, with earthy, full-bodied notes that reward a slower sip.</p>
-      <div class="bundles">
-        <p class="bundle-label">Select a bundle</p>
-        <a href="YOUR_REVOLUT_LINK_VINTAGE_SINGLE" class="bundle-btn" target="_blank">
-          <div class="bundle-left">
-            <span class="bundle-qty">1</span>
-            <div class="bundle-desc">
-              <span class="bundle-title">Single Bottle</span>
-              <span class="bundle-per">500ml · 6.5% ABV</span>
-            </div>
-          </div>
-          <div class="bundle-right">
-            <span class="bundle-price">£3.50</span>
-            <span class="bundle-arrow" aria-hidden="true">→</span>
-          </div>
+      <div class="buy-row">
+        <div>
+          <span class="buy-price">£12.00</span>
+          <span class="buy-qty-label">/ 4 bottles</span>
+        </div>
+        <a href="YOUR_REVOLUT_LINK_VINTAGE_4" class="buy-btn" target="_blank">
+          Buy 4 Bottles <span class="buy-btn-arrow">→</span>
         </a>
-        <a href="YOUR_REVOLUT_LINK_VINTAGE_4" class="bundle-btn" target="_blank">
-          <div class="bundle-left">
-            <span class="bundle-qty">4</span>
-            <div class="bundle-desc">
-              <span class="bundle-title">Four Pack</span>
-              <span class="bundle-per">£3.00 per bottle</span>
-            </div>
-          </div>
-          <div class="bundle-right">
-            <span class="bundle-price">£12</span>
-            <span class="bundle-arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-        <a href="YOUR_REVOLUT_LINK_VINTAGE_12" class="bundle-btn featured" target="_blank">
-          <div class="bundle-left">
-            <span class="bundle-qty">12</span>
-            <div class="bundle-desc">
-              <span class="bundle-title">Case <span class="best-value">Best Value</span></span>
-              <span class="bundle-per">£2.50 per bottle</span>
-            </div>
-          </div>
-          <div class="bundle-right">
-            <span class="bundle-price">£30</span>
-            <span class="bundle-arrow" aria-hidden="true">→</span>
-          </div>
+      </div>
+      <div class="buy-row">
+        <div>
+          <span class="buy-price">£30.00</span>
+          <span class="buy-qty-label">/ 12 bottles</span>
+        </div>
+        <a href="YOUR_REVOLUT_LINK_VINTAGE_12" class="buy-btn" target="_blank">
+          Buy 12 Bottles <span class="buy-btn-arrow">→</span>
         </a>
       </div>
     </div>
   </div>
 
-  <div class="delivery-note">
-    <p><strong>🕷 Farm delivery included</strong><br>Order before 5pm and we'll drop your cider to the cottage same day. For orders placed after 5pm, delivery will be the following morning.</p>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-divider">
-      <span class="spider-icon" aria-hidden="true">🕷</span>
+  <!-- How it works -->
+  <div class="how-it-works">
+    <div class="how-title"><span>How it works</span></div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <span class="how-step-icon">🛒</span>
+        <p class="how-step-label">Choose</p>
+        <p class="how-step-desc">Pick your cider and quantity.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <span class="how-step-icon">💳</span>
+        <p class="how-step-label">Pay</p>
+        <p class="how-step-desc">Complete payment securely with Revolut.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <span class="how-step-icon">🍾</span>
+        <p class="how-step-label">Collect</p>
+        <p class="how-step-desc">Collect your cider from the drinks fridge.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">4</div>
+        <span class="how-step-icon">🥂</span>
+        <p class="how-step-label">Enjoy</p>
+        <p class="how-step-desc">Sit back, relax and enjoy your stay!</p>
+      </div>
     </div>
-    <p class="footer-address">
-      Lane Barton · Woolsery · Bideford<br>
-      Devon · EX39 5PZ
-    </p>
-    <p class="footer-legal">
-      Contains sulphites. Ingredients: Hand-picked apples, water, sugar, sweetener (sucralose), preservative (sodium metabisulphite).<br><br>
-      The UK Chief Medical Officers recommend adults do not regularly drink more than 14 units per week.
-    </p>
-  </footer>
+  </div>
 
 </div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-address">
+    <span class="footer-address-pin">📍</span>
+    <div>Lane Barton Woolsery<br>Bideford, Devon EX39 5PZ</div>
+  </div>
+  <div class="footer-centre">
+    <p class="footer-thanks">Thank you for supporting</p>
+    <p class="footer-local">Local &amp; Craft</p>
+  </div>
+  <div class="footer-qr">
+    <div class="footer-qr-box">
+      <img src="images/qr.png" alt="QR code">
+    </div>
+    <p class="footer-qr-label">Scan to order</p>
+  </div>
+</footer>
+
+<script>
+  const accommodations = {
+    'the-barn':          'The Barn',
+    'the-stable':        'The Stable',
+    'dream-cottage':     'Dream Cottage',
+    'the-leisure-barn':  'The Leisure Barn'
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const key = params.get('accommodation');
+  const name = accommodations[key];
+
+  if (name) {
+    document.getElementById('accommodation-name').textContent = name;
+    document.getElementById('accommodation-banner').style.display = 'block';
+
+    document.querySelectorAll('a.buy-btn').forEach(btn => {
+      const href = btn.getAttribute('href');
+      if (href && !href.startsWith('YOUR_')) {
+        const url = new URL(href);
+        url.searchParams.set('reference', name);
+        btn.setAttribute('href', url.toString());
+      }
+    });
+  }
+</script>
 </body>
 </html>
